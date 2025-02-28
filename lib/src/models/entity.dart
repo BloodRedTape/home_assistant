@@ -97,7 +97,7 @@ class EntityAttributes {
   });
 
   factory EntityAttributes.fromJson(Map<String, dynamic> json) {
-    bool containsKeyAndValue(Map<String, dynamic> json, String key){
+    bool containsKeyAndValue(Map<String, dynamic> json, String key) {
       return json.containsKey(key) && json[key] != null;
     }
 
@@ -105,35 +105,74 @@ class EntityAttributes {
       editable: json['editable'],
       id: json['id'],
       userId: json['user_id'],
-      deviceTrackers: containsKeyAndValue(json, 'device_trackers') ? List<String>.from(json['device_trackers']) : [],
+      deviceTrackers:
+          containsKeyAndValue(json, 'device_trackers')
+              ? List<String>.from(json['device_trackers'])
+              : [],
       friendlyName: json['friendly_name'],
-      options: containsKeyAndValue(json, 'options') ? List<String>.from(json['options']) : [],
+      options:
+          containsKeyAndValue(json, 'options')
+              ? List<String>.from(json['options'])
+              : [],
 
       // Light
       supportedColorModes:
-          containsKeyAndValue(json, 'supported_color_modes') ? List<String>.from(json['supported_color_modes']) : [],
-      brightness: containsKeyAndValue(json, 'brightness') ? json['brightness'].toDouble() : null,
-      rgbColor: containsKeyAndValue(json, 'rgb_color') ? List<int>.from(json['rgb_color']) : null,
+          containsKeyAndValue(json, 'supported_color_modes')
+              ? List<String>.from(json['supported_color_modes'])
+              : [],
+      brightness:
+          containsKeyAndValue(json, 'brightness')
+              ? json['brightness'].toDouble()
+              : null,
+      rgbColor:
+          containsKeyAndValue(json, 'rgb_color')
+              ? List<int>.from(json['rgb_color'])
+              : null,
 
       // Climate
-      hvacModes: containsKeyAndValue(json, 'hvac_modes') ? List<String>.from(json['hvac_modes']) : null,
+      hvacModes:
+          containsKeyAndValue(json, 'hvac_modes')
+              ? List<String>.from(json['hvac_modes'])
+              : null,
       minTemp: containsKeyAndValue(json, 'min_temp') ? json['min_temp'] : null,
       maxTemp: containsKeyAndValue(json, 'max_temp') ? json['max_temp'] : null,
-      currentTemperature: containsKeyAndValue(json, 'current_temperature') ? json['current_temperature'] : null,
-      temperature: containsKeyAndValue(json, 'temperature') ? json['temperature'] : null,
-      targetTempLow: containsKeyAndValue(json, 'target_temp_low') ? json['target_temp_low'] : null,
-      targetTempHigh: containsKeyAndValue(json, 'target_temp_high') ? json['target_temp_high'] : null,
-      presetMode: containsKeyAndValue(json, 'preset_mode') ? json['preset_mode'] : null,
-      hvacAction: containsKeyAndValue(json, 'hvac_action') ? json['hvac_action'] : null,
+      currentTemperature:
+          containsKeyAndValue(json, 'current_temperature')
+              ? json['current_temperature'].toDouble()
+              : null,
+      temperature:
+          containsKeyAndValue(json, 'temperature')
+              ? json['temperature'].toDouble()
+              : null,
+      targetTempLow:
+          containsKeyAndValue(json, 'target_temp_low')
+              ? json['target_temp_low'].toDouble()
+              : null,
+      targetTempHigh:
+          containsKeyAndValue(json, 'target_temp_high')
+              ? json['target_temp_high'].toDouble()
+              : null,
+      presetMode:
+          containsKeyAndValue(json, 'preset_mode') ? json['preset_mode'] : null,
+      hvacAction:
+          containsKeyAndValue(json, 'hvac_action') ? json['hvac_action'] : null,
       fanMode: containsKeyAndValue(json, 'fan_mode') ? json['fan_mode'] : null,
 
       // Camera
-      videoUrl: containsKeyAndValue(json, 'video_url') ? json['video_url'] : null,
-      entityPicture: containsKeyAndValue(json, 'entity_picture') ? json['entity_picture'] : null,
+      videoUrl:
+          containsKeyAndValue(json, 'video_url') ? json['video_url'] : null,
+      entityPicture:
+          containsKeyAndValue(json, 'entity_picture')
+              ? json['entity_picture']
+              : null,
 
       // Media Player
-      media_title: containsKeyAndValue(json, 'media_title') ? json['media_title'] : null,
-      media_artist: containsKeyAndValue(json, 'media_artist') ? json['media_artist'] : null,
+      media_title:
+          containsKeyAndValue(json, 'media_title') ? json['media_title'] : null,
+      media_artist:
+          containsKeyAndValue(json, 'media_artist')
+              ? json['media_artist']
+              : null,
     );
   }
 
@@ -147,7 +186,8 @@ class EntityAttributes {
 
       // Light
       'brightness': brightness != null ? brightness : null,
-      'supported_color_modes': supportedColorModes != null ? supportedColorModes : null,
+      'supported_color_modes':
+          supportedColorModes != null ? supportedColorModes : null,
       'rgb_color': rgbColor != null ? rgbColor : null,
 
       // Climate
@@ -178,11 +218,7 @@ class EntityContext {
   String? parentId;
   String? userId;
 
-  EntityContext({
-    required this.id,
-    this.parentId,
-    this.userId,
-  });
+  EntityContext({required this.id, this.parentId, this.userId});
 
   factory EntityContext.fromJson(Map<String, dynamic> json) {
     return EntityContext(
@@ -193,10 +229,6 @@ class EntityContext {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'parent_id': parentId,
-      'user_id': userId,
-    };
+    return {'id': id, 'parent_id': parentId, 'user_id': userId};
   }
 }
