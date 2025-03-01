@@ -8,6 +8,7 @@ import 'networking/http_client.dart';
 /// The main class for initializing and managing the Home Assistant connection.
 class HomeAssistant {
   late HomeAssistantApi _api;
+  final bool allowUntrustedSsl;
 
   /// Creates an instance of HomeAssistant with the provided [baseUrl] and [bearerToken].
   ///
@@ -16,9 +17,14 @@ class HomeAssistant {
   HomeAssistant({
     required String baseUrl,
     required String bearerToken,
+    required this.allowUntrustedSsl,
   }) {
     _api = HomeAssistantApi(
-      httpClient: HttpClient(baseUrl: baseUrl, bearerToken: bearerToken),
+      httpClient: HttpClient(
+        baseUrl: baseUrl,
+        bearerToken: bearerToken,
+        allowUntrustedSsl: allowUntrustedSsl,
+      ),
     );
   }
 
@@ -56,6 +62,9 @@ class HomeAssistant {
     String entityId,
     String action, {
     Map<String, dynamic> additionalActions = const {},
-  }) =>
-      _api.executeService(entityId, action, additionalActions: additionalActions);
+  }) => _api.executeService(
+    entityId,
+    action,
+    additionalActions: additionalActions,
+  );
 }
