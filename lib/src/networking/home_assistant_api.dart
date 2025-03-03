@@ -135,7 +135,8 @@ class HomeAssistantApi {
       return null;
     }
 
-    Map<String, dynamic> decodedResponse = json.decode(response.body);
+    Map<String, dynamic> decodedResponse =
+        json.decode(utf8.decode(response.bodyBytes));
 
     return ServiceResponse.fromJson(decodedResponse);
   }
