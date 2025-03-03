@@ -20,6 +20,7 @@ class HttpClient {
       headers: {
         'Authorization': 'Bearer $bearerToken',
         'Content-Type': 'application/json',
+        'Accept': 'application/json;charset=UTF-8'
       },
     );
 
@@ -32,6 +33,7 @@ class HttpClient {
       headers: {
         'Authorization': 'Bearer $bearerToken',
         'Content-Type': 'application/json',
+        'Accept': 'application/json;charset=UTF-8'
       },
       body: json.encode(data),
     );
@@ -45,6 +47,7 @@ class HttpClient {
       headers: {
         'Authorization': 'Bearer $bearerToken',
         'Content-Type': 'application/json',
+        'Accept': 'application/json;charset=UTF-8'
       },
       body: json.encode(data),
     );
@@ -58,6 +61,7 @@ class HttpClient {
       headers: {
         'Authorization': 'Bearer $bearerToken',
         'Content-Type': 'application/json',
+        'Accept': 'application/json;charset=UTF-8'
       },
     );
 
