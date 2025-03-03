@@ -118,13 +118,16 @@ class HomeAssistantApi {
     final String returnResponseString = '?return_response';
     final String dontReturnResponseString = '';
 
+    final endpoint =
+        '/api/services/$domain/$service${returnResponse ? returnResponseString : dontReturnResponseString}';
     final response = await httpClient.post(
-      '/api/services/$domain}/$service${returnResponse ? returnResponseString : dontReturnResponseString}',
+      endpoint,
       serviceData,
     );
 
     if (response.statusCode != 200) {
-      throw Exception('Failed to execute services: ${response.reasonPhrase}');
+      throw Exception(
+          'Failed to execute services: ${response.reasonPhrase}: ${response.statusCode}: $endpoint');
     }
 
     if (!returnResponse) {
