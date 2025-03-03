@@ -58,13 +58,25 @@ class HomeAssistant {
   /// [entityId] is the entity to execute the service on.
   /// Returns a [bool] indicating whether the service call was successful.
   /// The [action] and [additionalActions] parameter is the [Entity.attributes] value for the service
-  Future<bool> executeService(
+  Future<bool> executeServiceForEntity(
     String entityId,
     String action, {
     Map<String, dynamic> additionalActions = const {},
-  }) => _api.executeService(
-    entityId,
-    action,
-    additionalActions: additionalActions,
-  );
+  }) =>
+      _api.executeServiceForEntity(
+        entityId,
+        action,
+        additionalActions: additionalActions,
+      );
+
+  Future<ServiceResponse?> executeService(
+          {required String domain,
+          required String service,
+          Map<String, dynamic> serviceData = const {},
+          bool returnResponse = false}) async =>
+      _api.executeService(
+          domain: domain,
+          service: service,
+          serviceData: serviceData,
+          returnResponse: returnResponse);
 }

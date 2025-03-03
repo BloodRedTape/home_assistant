@@ -76,12 +76,31 @@ class ServiceTarget {
   });
 
   factory ServiceTarget.fromJson(Map<String, dynamic> json) {
-    final List<Map<String, dynamic>> entityList = List<Map<String, dynamic>>.from(json['entity']);
-    final List<Map<String, dynamic>> deviceList = List<Map<String, dynamic>>.from(json['device']);
+    final List<Map<String, dynamic>> entityList =
+        List<Map<String, dynamic>>.from(json['entity']);
+    final List<Map<String, dynamic>> deviceList =
+        List<Map<String, dynamic>>.from(json['device']);
 
     return ServiceTarget(
       entity: entityList,
       device: deviceList,
+    );
+  }
+}
+
+class ServiceResponse {
+  final Map<String, dynamic> serviceResponse;
+
+  ServiceResponse({
+    required this.serviceResponse,
+  });
+
+  factory ServiceResponse.fromJson(Map<String, dynamic> json) {
+    final Map<String, dynamic> serviceResponse =
+        Map<String, dynamic>.from(json['service_response']);
+
+    return ServiceResponse(
+      serviceResponse: serviceResponse,
     );
   }
 }

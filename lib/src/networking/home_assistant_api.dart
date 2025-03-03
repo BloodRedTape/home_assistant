@@ -25,7 +25,8 @@ class HomeAssistantApi {
         return false;
       }
     } else {
-      throw Exception('Failed to verify API is working: ${response.reasonPhrase}');
+      throw Exception(
+          'Failed to verify API is working: ${response.reasonPhrase}');
     }
   }
 
@@ -39,7 +40,8 @@ class HomeAssistantApi {
       Map<String, dynamic> decodedResponse = json.decode(response.body);
       return Configuration.fromJson(decodedResponse);
     } else {
-      throw Exception('Failed to fetch Home Assistant configuration: ${response.reasonPhrase}');
+      throw Exception(
+          'Failed to fetch Home Assistant configuration: ${response.reasonPhrase}');
     }
   }
 
@@ -79,7 +81,8 @@ class HomeAssistantApi {
 
     if (response.statusCode == 200) {
       final List<dynamic> decodedResponse = json.decode(response.body);
-      final List<Service> services = decodedResponse.map((service) => Service.fromJson(service)).toList();
+      final List<Service> services =
+          decodedResponse.map((service) => Service.fromJson(service)).toList();
       return services;
     } else {
       throw Exception('Failed to fetch services: ${response.reasonPhrase}');
@@ -91,7 +94,8 @@ class HomeAssistantApi {
   /// [entityId] is the entity to execute the service on.
   /// Returns a [bool] indicating whether the service call was successful.
   /// The [action] and [additionalActions] parameter is the [Entity.attributes] value for the service
-  Future<bool> executeService(String entityId, String action, {Map<String, dynamic> additionalActions = const {}}) async {
+  Future<bool> executeServiceForEntity(String entityId, String action,
+      {Map<String, dynamic> additionalActions = const {}}) async {
     Map<String, dynamic> data = Map.from(additionalActions);
     data["entity_id"] = entityId;
     final response = await httpClient.post(
@@ -104,5 +108,32 @@ class HomeAssistantApi {
     } else {
       return false;
     }
+  }
+
+  Future<ServiceResponse?> executeService(
+      {required String domain,
+      required String service,
+      Map<String, dynamic> serviceData = const {},
+      bool returnResponse = false}) async {
+    final String returnResponseString = '?return_response';
+    final String dontReturnResponseString = '';
+
+    final response = await httpClient.post(
+      '/api/services/$domain}/$service${returnResponse ? returnResponseString : dontReturnResponseString}',
+      serviceData,
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to execute services: ${response.reasonPhrase}');
+    }
+
+    if (!returnResponse) {
+      //everything is fine
+      return null;
+    }
+
+    Map<String, dynamic> decodedResponse = json.decode(response.body);
+
+    return ServiceResponse.fromJson(decodedResponse);
   }
 }

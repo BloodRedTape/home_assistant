@@ -206,6 +206,7 @@ class EntityAttributes {
       // Media Player
       'media_title': media_title,
       'media_artist': media_artist,
+      'current_position': current_position
     };
   }
 }
